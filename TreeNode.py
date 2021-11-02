@@ -1,5 +1,6 @@
 historyStates = set()
 goalFound = False
+goalNodes = set()
 
 class Node():
 	global historyStates
@@ -103,12 +104,13 @@ class Node():
 				
 
 	# checkState will check the value of the node given and determine whether that node is a goal state or not
-	def checkState(self):
+	def isGoal(self):
 		gCount = 0
 		for i in self.value:
 			if gCount >= 3:
 				self.goalState = True
 				goalFound = True
+				goalNodes.add(self.value)
 				return True
 			if gCount < 3 and i=='g':
 				gCount+=1
@@ -120,6 +122,12 @@ class Node():
 	def checkChildrenNodes(self):
 		goalCount=0
 		for node in self.children:
-			if node.checkState(): 
+			if node.isGoal(): 
 				goalCount+=1
 		return goalCount
+
+	@staticmethod
+	def isGoalFound():
+		if (goalFound):
+			return goalNodes
+		return goalFound
