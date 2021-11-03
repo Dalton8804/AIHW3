@@ -1,23 +1,27 @@
 from Node import Node
-
+import csv
 root = Node(value="rrrbggg",cost=0,level=0)
 
 tree = {}
-valueTree = {}
+
+levelValues = {}
 
 levelCount = {0:1}
 needToAdd = []
+seen = []
+
 
 def createTree(node):
-	tree[node] = node.getChildren()
-	count=0
-	for node in tree[node]:
-		count+=1
-		needToAdd.append(node)
-	if(node.level in levelCount):
-		levelCount[node.level] += count
-	else:
-		levelCount[node.level] =count
+		tree[node] = node.getChildren()
+		count=0
+		for node in tree[node]:
+			count+=1
+			print(str(node.level)+" "+node.value)
+			needToAdd.append(node)
+		if(node.level in levelCount):
+			levelCount[node.level] += count
+		else:
+			levelCount[node.level] =count
 
 createTree(root)
 
@@ -25,29 +29,26 @@ while (len(needToAdd)>0):
 	createTree(needToAdd.pop(0))
 
 
-def pathToGoal(node,arr):
-	
-	if(node.parent!=None):
-		arr = pathToGoal(node.parent,arr)
-	arr += " -> "+node.value
-	return arr
 
-# Start BFS
-visited = []
-queue = []
+for x in tree:
+	if ((x.level in levelValues)):
+		levelValues[x.level].append(x.value)
+	else:
+		levelValues[x.level] = [x.value]
 
-def bfs(visited, tree, node):
-	visited.append(node)
-	queue.append(node)
+# open the file in the write mode
+#f = open('test.csv', 'w')
+# create the csv writer
+#writer = csv.writer(f)
 
-	while(queue):
-		curr = queue.pop(0)
-		if (curr.isGoal()):
-			print("\nLevel Found: "+str(curr.level)+" Total Cost: "+str(curr.totalCost)+" State: "+curr.value)
-			print("Path from root: "+ str(pathToGoal(curr,"")),end="\n\n")
-		for neighbor in tree[curr]:
-			if (neighbor not in visited):
-				visited.append(neighbor)
-				queue.append(neighbor)
+# close the file
 
-bfs(visited, tree, root)
+
+
+print(levelCount)
+for x in levelValues:
+	print(str(len(levelValues[x]))+" "+str(levelValues[x]))
+	# write a row to the csv file
+	#writer.writerow(levelValues[x])
+
+#f.close()

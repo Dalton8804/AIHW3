@@ -6,6 +6,7 @@ class Node():
 	global historyStates,goalFound,goalNodes
 
 	def __init__(self, parent=None, value=None, children=None, goalState=False, cost=None,level=None,totalCost=None):
+
 		if goalState != None and (goalState is True or goalState is False):
 			self.goalState = goalState
 		else:
@@ -20,13 +21,10 @@ class Node():
 		# initialize value variable for each node
 		if value != None:
 			self.value = value
+
 		else:
 			self.value = None
-		# initialize children variable for each node
-		if children != None:
-			self.children = children
-		else:
-			self.children = []
+		
 		if cost != None:
 			self.cost = cost 
 		else: 
@@ -42,7 +40,12 @@ class Node():
 			self.level = None
 		if parent != None:
 			self.totalCost = self.parent.totalCost + self.cost
-		
+
+		# initialize children variable for each node
+		if children != None:
+			self.children = children
+		else:
+			self.children = []
 
 	def findChildren(self):
 		indxOfB = self.value.index('b')
