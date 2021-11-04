@@ -14,7 +14,6 @@ def createTree(node):
     count = 0
     for node in tree[node]:
         count += 1
-        # print(str(node.level)+" "+node.value)
         needToAdd.append(node)
     if node.level in levelCount:
         levelCount[node.level] += count
@@ -33,20 +32,19 @@ for x in tree:
     else:
         levelValues[x.level] = [x.value]
 
-# open the file in the write mode
-# f = open('test.csv', 'w')
-# create the csv writer
-# writer = csv.writer(f)
-
-# close the file
-
 
 print(levelCount)
 i = 0
 for x in levelValues:
     print("Level " + str(i) + ": " + str(levelValues[x]))
     i += 1
-# write a row to the csv file
-# writer.writerow(levelValues[x])
 
-# f.close()
+for x in tree:
+	tmparr= []
+	for y in tree[x]:
+		tmparr.append(y.value)
+	if (len(tmparr) > 0):
+		print("Parent at Level "+str(x.level)+" : "+x.value)
+		print("Children: "+str(tmparr))
+
+
