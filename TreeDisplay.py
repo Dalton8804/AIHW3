@@ -8,7 +8,7 @@ levelCount = {0: 1}  # holds the number of nodes at each level
 needToAdd = []  # used as queue to determine next node to evaluate
 
 
-def createTree(node):
+def createLevel(node):
     if not (node in tree):
         tree[node] = node.getChildren()
     count = 0
@@ -24,7 +24,7 @@ def createTree(node):
 needToAdd.append(root)
 
 while len(needToAdd) > 0:
-    createTree(needToAdd.pop(0))
+    createLevel(needToAdd.pop(0))
 
 for x in tree:
     if x.level in levelValues:

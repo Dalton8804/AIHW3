@@ -9,7 +9,7 @@ levelCount = {0: 1}
 needToAdd = []
 
 
-def createTree(node):
+def createLevel(node):
     tree[node] = node.getChildren()
     count = 0
     for node in tree[node]:
@@ -21,10 +21,10 @@ def createTree(node):
         levelCount[node.level] = count
 
 
-createTree(root)
+createLevel(root)
 
 while len(needToAdd) > 0:
-    createTree(needToAdd.pop(0))
+    createLevel(needToAdd.pop(0))
 
 
 def pathToGoal(node, arr):
